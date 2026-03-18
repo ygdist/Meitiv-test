@@ -180,7 +180,7 @@ window.Footer = () => (
             </div>
             <span className="text-xl font-bold text-white tracking-tight">Meitiv Wholesale</span>
           </div>
-          <p className="mb-4 max-w-md">Your trusted partner for wholesale kosher provisions. Serving the community with quality, value, and exceptional service.</p>
+          <p className="mb-4 max-w-md">Your trusted partner for wholesale kosher. Serving the community with quality, value, and exceptional service.</p>
         </div>
         <div>
           <h3 className="text-white font-semibold mb-4">Quick Links</h3>
@@ -193,8 +193,8 @@ window.Footer = () => (
         <div>
           <h3 className="text-white font-semibold mb-4">Contact</h3>
           <ul className="space-y-2">
-            <li className="flex items-center gap-2"><i className="fa-solid fa-location-dot w-4"></i> 123 Kosher Way, Monroe NY</li>
-            <li className="flex items-center gap-2"><i className="fa-solid fa-phone w-4"></i> (718) 555-0198</li>
+            <li className="flex items-center gap-2"><i className="fa-solid fa-location-dot w-4"></i> 1017 NY-17M, Monroe NY</li>
+            <li className="flex items-center gap-2"><i className="fa-solid fa-phone w-4"></i> (845) 999-4422</li>
             <li className="flex items-center gap-2"><i className="fa-solid fa-envelope w-4"></i> orders@meitivwholesale.com</li>
           </ul>
         </div>
