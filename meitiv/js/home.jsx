@@ -11,9 +11,62 @@ const Home = () => {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [savings, setSavings] = useState(0);
 
+const TypewriterHeader = () => {
+  const [text, setText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [loopNum, setLoopNum] = useState(0);
+  const [typingSpeed, setTypingSpeed] = useState(150);
+
+  const phrases = [
+    ["Premium Kosher at", "Wholesale Prices."],
+    ["Bulk Savings.", "Zero Compromise."]
+  ];
+
   useEffect(() => {
-    const target = 2543000;
-    const duration = 2000;
+    const handleTyping = () => {
+      const currentLoop = loopNum % phrases.length;
+      const fullLine1 = phrases[currentLoop][0];
+      const fullLine2 = phrases[currentLoop][1];
+      const fullText = `${fullLine1}\n${fullLine2}`; // Using newline to separate lines
+
+      if (isDeleting) {
+        setText(fullText.substring(0, text.length - 1));
+        setTypingSpeed(50); // Deleting is faster
+      } else {
+        setText(fullText.substring(0, text.length + 1));
+        setTypingSpeed(150); // Normal typing speed
+      }
+
+      if (!isDeleting && text === fullText) {
+        setTimeout(() => setIsDeleting(true), 2000); // Pause at the end of a phrase
+      } else if (isDeleting && text === "") {
+        setIsDeleting(false);
+        setLoopNum(loopNum + 1);
+      }
+    };
+
+    const timer = setTimeout(handleTyping, typingSpeed);
+    return () => clearTimeout(timer);
+  }, [text, isDeleting, loopNum, typingSpeed]);
+
+  // Split the text back into two lines for rendering
+  const lines = text.split("\n");
+
+  return (
+    <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight min-h-[160px] md:min-h-[200px]">
+      {lines[0]}
+      <br />
+      <span className="text-blue-400">
+        {lines[1] || ""}
+      </span>
+      <span className="animate-pulse border-r-4 border-blue-400 ml-1">&nbsp;</span>
+    </h1>
+  );
+};
+
+  useEffect(() => {
+    const target = 12543000;
+    const duration = 3000;
     const steps = 60;
     const stepTime = Math.abs(Math.floor(duration / steps));
     let current = 0;
@@ -43,35 +96,52 @@ const Home = () => {
             <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=2000" alt="Supermarket aisle" className="w-full h-full object-cover opacity-20" />
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
           </div>
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }} className="max-w-2xl">
-              <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold tracking-wider mb-4 border border-blue-500/30">
-                WHOLESALE TO THE PUBLIC
-              </span>
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-                Premium Kosher at <span className="text-blue-400">Wholesale Prices</span>
-              </h1>
-              <p className="text-lg sm:text-xl text-slate-300 mb-8 max-w-xl">
-                Your trusted source for bulk kosher groceries, fresh produce, and essential households. Serving families  with uncompromising quality at at cost price.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mb-12">
-                <a href="catalog.html" className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors text-center shadow-lg shadow-blue-600/20">
-                  Shop Catalog
-                </a>
-                <button className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors backdrop-blur-sm border border-white/10">
-                  View Weekly Specials
-                </button>
-              </div>
-              
-              <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 inline-block">
-                <p className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-2">Total Savings for Local Families</p>
-                <div className="text-4xl sm:text-5xl font-bold text-emerald-400 flex items-center gap-2">
-                  <i className="fa-solid fa-arrow-trend-down text-2xl"></i>
-                  ${savings.toLocaleString()}
-                </div>
-              </div>
-            </motion.div>
-          </div>
+<div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
+  {/* Added flex container: stacks on mobile, side-by-side on large screens */}
+  <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-12">
+    
+    {/* Left Side: Text and Buttons */}
+    <motion.div 
+      initial={{ opacity: 0, x: -20 }} 
+      animate={{ opacity: 1, x: 0 }} 
+      transition={{ duration: 0.6 }} 
+      className="max-w-2xl"
+    >
+      <span className="inline-block py-1 px-3 rounded-full bg-blue-500/20 text-blue-300 text-sm font-semibold tracking-wider mb-4 border border-blue-500/30">
+        WHOLESALE TO THE PUBLIC
+      </span>
+      <TypewriterHeader />
+      <p className="text-lg sm:text-xl text-slate-300 mb-8 max-w-xl">
+        Your trusted source for kosher groceries, fresh produce, and essential households. Serving families with uncompromising quality at cost price.
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4">
+        <a href="catalog.html" className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors text-center shadow-lg shadow-blue-600/20">
+          Shop Catalog
+        </a>
+        <button className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors backdrop-blur-sm border border-white/10">
+          View Weekly Specials
+        </button>
+      </div>
+    </motion.div>
+
+    {/* Right Side: Savings Counter */}
+    <motion.div 
+      initial={{ opacity: 0, x: 20 }} 
+      animate={{ opacity: 1, x: 0 }} 
+      transition={{ duration: 0.6, delay: 0.2 }}
+      className="lg:mt-0 mt-8"
+    >
+      <div className="bg-white/5 backdrop-blur-md border border-white/10 rounded-3xl p-8 lg:p-10 inline-block w-full sm:w-auto text-center lg:text-left">
+        <p className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-2">Total Savings for Local Families</p>
+        <div className="text-5xl sm:text-6xl font-bold text-emerald-400 flex items-center justify-center lg:justify-start gap-3">
+          <i className="fa-solid fa-arrow-trend-down text-3xl"></i>
+          ${savings.toLocaleString()}
+        </div>
+      </div>
+    </motion.div>
+
+  </div>
+</div>
         </div>
 
         {/* Featured Specials */}
@@ -79,7 +149,7 @@ const Home = () => {
           <div className="flex justify-between items-end mb-8">
             <div>
               <h2 className="text-3xl font-bold text-slate-900 mb-2">Featured Specials</h2>
-              <p className="text-slate-600">Hand-picked deals for your family or institution.</p>
+              <p className="text-slate-600">Hand-picked deals for your family.</p>
             </div>
             <a href="catalog.html" className="hidden sm:flex items-center gap-2 text-blue-600 font-medium hover:text-blue-700 transition-colors">
               View All <i className="fa-solid fa-arrow-right"></i>
@@ -105,22 +175,23 @@ const Home = () => {
                 <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <i className="fa-solid fa-truck-fast text-2xl"></i>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Bulk Delivery</h3>
-                <p className="text-slate-600">Free local delivery on wholesale orders over $500. Serving the greater Monroe area.</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">No Membership Required</h3>
+                <p className="text-slate-600">Shop wholesale prices without the annual fees. Open to the public.</p>
+            </p>
               </div>
               <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
                 <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <i className="fa-solid fa-certificate text-2xl"></i>
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">Strict Kashrus</h3>
-                <p className="text-slate-600">All products carry reliable certifications. We work directly with leading Kashrus agencies.</p>
+                <p className="text-slate-600">All products carry reliable certifications. We carry products leading Kashrus.</p>
               </div>
               <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
                 <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
                   <i className="fa-solid fa-users text-2xl"></i>
                 </div>
-                <h3 className="text-xl font-bold text-slate-900 mb-3">Institutional Accounts</h3>
-                <p className="text-slate-600">Special pricing and dedicated support for schools, yeshivas, and catering halls.</p>
+                <h3 className="text-xl font-bold text-slate-900 mb-3">Case Deals</h3>
+                <p className="text-blue-200">Perfect for large families, simchas, caterers, and local institutions.</p>
               </div>
             </div>
           </div>
@@ -130,7 +201,7 @@ const Home = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-slate-900 mb-4">What Our Customers Say</h2>
-            <p className="text-slate-600 max-w-2xl mx-auto">Don't just take our word for it. See how Meitiv Wholesale is helping families and institutions save.</p>
+            <p className="text-slate-600 max-w-2xl mx-auto">Don't just take our word for it. See how Meitiv Wholesale is helping families save.</p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
