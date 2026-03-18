@@ -59,14 +59,14 @@ const TypewriterHeader = () => {
       <span className="text-blue-400">
         {lines[1] || ""}
       </span>
-      <span className="animate-pulse border-r-4 border-blue-400 ml-1">&nbsp;</span>
+      {/* <span className="animate-pulse border-r-4 border-blue-400 ml-1">&nbsp;</span> */}
     </h1>
   );
 };
 
   useEffect(() => {
     const target = 12543000;
-    const duration = 3000;
+    const duration = 1500;
     const steps = 60;
     const stepTime = Math.abs(Math.floor(duration / steps));
     let current = 0;
