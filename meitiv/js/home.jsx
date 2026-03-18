@@ -31,14 +31,14 @@ const TypewriterHeader = () => {
 
       if (isDeleting) {
         setText(fullText.substring(0, text.length - 1));
-        setTypingSpeed(50); // Deleting is faster
+        setTypingSpeed(40); // Deleting is faster
       } else {
         setText(fullText.substring(0, text.length + 1));
-        setTypingSpeed(150); // Normal typing speed
+        setTypingSpeed(100); // Normal typing speed
       }
 
       if (!isDeleting && text === fullText) {
-        setTimeout(() => setIsDeleting(true), 2000); // Pause at the end of a phrase
+        setTimeout(() => setIsDeleting(true), 1000); // Pause at the end of a phrase
       } else if (isDeleting && text === "") {
         setIsDeleting(false);
         setLoopNum(loopNum + 1);
@@ -168,7 +168,7 @@ const TypewriterHeader = () => {
         </div>
 
         {/* Info / Features Section */}
-        <div className="bg-slate-100 py-16 border-y border-slate-200">
+        {/* <div className="bg-slate-100 py-16 border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
@@ -194,7 +194,35 @@ const TypewriterHeader = () => {
               </div>
             </div>
           </div>
+        </div> */}
+        
+      <section className="py-20 bg-blue-900 text-white">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+            <div>
+              <div className="w-16 h-16 bg-blue-800 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-300">
+                <i class="fa-solid fa-2x fa-cart-shopping"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">No Membership Required</h3>
+              <p className="text-blue-200">Shop wholesale prices without the annual fees. Open to the public.</p>
+            </div>
+            <div>
+              <div className="w-16 h-16 bg-blue-800 rounded-2xl flex items-center justify-center mx-auto mb-6 text-blue-300">
+                <i class="fa-solid fa-2x fa-award"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Strict Hashgacha</h3>
+              <p className="text-blue-200">We carry products from the most trusted kosher certification agencies worldwide.</p>
+            </div>
+            <div>
+              <div className="w-16 h-16 bg-blue-800 rounded-4xl flex items-center justify-center mx-auto mb-6 text-blue-300">
+                <i class="fa-solid fa-2x fa-box-open"></i>
+              </div>
+              <h3 className="text-xl font-bold mb-3">Bulk Case Deals</h3>
+              <p className="text-blue-200">Perfect for large families, simchas, caterers, and local institutions.</p>
+            </div>
+          </div>
         </div>
+      </section>
 
         {/* Testimonials */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
