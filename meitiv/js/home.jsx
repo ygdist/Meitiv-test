@@ -49,10 +49,10 @@ const Home = () => {
                 WHOLESALE TO THE PUBLIC
               </span>
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6">
-                Premium Kosher Provisions at <span className="text-blue-400">Wholesale Prices</span>
+                Premium Kosher at <span className="text-blue-400">Wholesale Prices</span>
               </h1>
               <p className="text-lg sm:text-xl text-slate-300 mb-8 max-w-xl">
-                Your trusted source for bulk kosher groceries, fresh produce, and premium meats. Serving families and institutions with uncompromising quality.
+                Your trusted source for bulk kosher groceries, fresh produce, and essential households. Serving families  with uncompromising quality at at cost price.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mb-12">
                 <a href="catalog.html" className="bg-blue-600 hover:bg-blue-500 text-white px-8 py-4 rounded-xl font-bold text-lg transition-colors text-center shadow-lg shadow-blue-600/20">
