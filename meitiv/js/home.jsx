@@ -177,7 +177,6 @@ const TypewriterHeader = () => {
                 </div>
                 <h3 className="text-xl font-bold text-slate-900 mb-3">No Membership Required</h3>
                 <p className="text-slate-600">Shop wholesale prices without the annual fees. Open to the public.</p>
-            </p>
               </div>
               <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center">
                 <div className="w-16 h-16 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6">
